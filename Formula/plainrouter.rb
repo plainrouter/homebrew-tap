@@ -7,7 +7,22 @@ class Plainrouter < Formula
 
   depends_on "node"
 
+  resource "sdk" do
+    url "https://registry.npmjs.org/@plainrouter/sdk/-/sdk-0.5.0.tgz"
+    sha256 "f5f21c9d3d8fe5954f21fd860c3d77c96f6fa9ed0bbecdef13f9978cf84c2066"
+  end
+
   def install
+    resource("sdk").stage do
+      source = Pathname("package").directory? ? Pathname("package") : Pathname.pwd
+      (buildpath/"vendor/plainrouter-sdk").install source.children
+    end
+
+    package_json = JSON.parse((buildpath/"package.json").read)
+    package_json.fetch("dependencies")["@plainrouter/sdk"] = "file:vendor/plainrouter-sdk"
+    package_json.fetch("files") << "vendor"
+    (buildpath/"package.json").write(JSON.pretty_generate(package_json))
+
     system "npm", "install", *std_npm_args
     bin.install_symlink libexec.glob("bin/*")
   end

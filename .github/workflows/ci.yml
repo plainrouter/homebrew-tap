@@ -19,6 +19,9 @@ jobs:
         os: [macos-15, ubuntu-24.04]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Homebrew
+        if: runner.os == 'Linux'
+        uses: Homebrew/actions/setup-homebrew@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # main
       - name: Add this checkout as a tap
         run: |
           mkdir -p "$(brew --repository)/Library/Taps/plainrouter"
