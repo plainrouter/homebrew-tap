@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  formula:
+    name: Homebrew (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Add this checkout as a tap
+        run: |
+          mkdir -p "$(brew --repository)/Library/Taps/plainrouter"
+          ln -s "$GITHUB_WORKSPACE" "$(brew --repository)/Library/Taps/plainrouter/homebrew-tap"
+      - run: brew style plainrouter/tap/plainrouter
+      - run: brew audit --strict plainrouter/tap/plainrouter
+      - run: brew install --build-from-source plainrouter/tap/plainrouter
+      - run: brew test plainrouter/tap/plainrouter
