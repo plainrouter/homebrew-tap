@@ -30,6 +30,6 @@ class Plainrouter < Formula
 
   test do
     assert_equal "0.5.0", shell_output("#{bin}/plainrouter --version").strip
-    assert_match "PlainRouter Signals API", shell_output("#{bin}/plainrouter --help")
+    assert_match "Plainrouter Signals API", shell_output("#{bin}/plainrouter --help")
   end
 end
