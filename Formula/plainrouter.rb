@@ -21,7 +21,7 @@ class Plainrouter < Formula
     package_json = JSON.parse((buildpath/"package.json").read)
     package_json.fetch("dependencies")["@plainrouter/sdk"] = "file:vendor/plainrouter-sdk"
     package_json.fetch("files") << "vendor"
-    (buildpath/"package.json").write(JSON.pretty_generate(package_json))
+    (buildpath/"package.json").atomic_write(JSON.pretty_generate(package_json))
 
     system "npm", "install", *std_npm_args
     bin.install_symlink libexec.glob("bin/*")
