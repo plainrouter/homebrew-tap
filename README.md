@@ -1,6 +1,8 @@
-# PlainRouter Homebrew tap
+# Plainrouter Homebrew tap
 
-Official Homebrew distribution for the [PlainRouter](https://plainrouter.com) command-line interface.
+Official Homebrew distribution for the [Plainrouter](https://plainrouter.com) command-line interface.
+
+Plainrouter is the paid ads platform for developers and agents. Its hosted [Meta Ads MCP server](https://plainrouter.com/solutions/meta-ads-mcp) lets Claude, ChatGPT, Codex, Cursor and other MCP clients read a Meta ad account and propose changes that pass policy checks. MCP setup, Agent Skills and the other SDKs live in [plainrouter/sdk](https://github.com/plainrouter/sdk).
 
 ## Install
 
